@@ -10,9 +10,11 @@ To push config file from local directory to Smartwatch
 adb push config.txt /sdcard/wada/config/
 
 To convert .wada files into .csv files
+
 java   -jar Wada.jar   acl   source_folder_path   destination_folder_path
 
 To convert .csv files in .arff files
+
 for file in `\ls csv-data`; do java -jar Wada.jar   arff  csv-data/$file; done
 
 
