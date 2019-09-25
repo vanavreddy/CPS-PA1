@@ -10,15 +10,32 @@
 #     mean_x, std_x, mean_y, std_y, mean_z, std_z, Activity
 # where Activity is 'hand_wash' or 'no_hand_wash'
 
-#import csv
-import pandas
-filename = "/home/student/Android/Sdk/platform-tools/data/G5NZCJ017647206-Kay-left-hand_wash-sanitizer-2019-09-21-11-39-15.csv"
+import csv
+import pandas as pd
+from datetime import datetime
 
-df = pandas.read_csv(filename)
-#print (len(df))
+filename = "data/G5NZCJ017647206-Kay-left-hand_wash-soap-2019-09-21-07-12-36.wada"
+#filename = "csv-data/G5NZCJ017647206-Kay-left-hand_wash-soap-2019-09-21-07-12-36.csv"
+
+#f = open('./features.csv', 'w')
+
+with open(filename) as csv_file:
+    csv_reader = csv.reader(csv_file, delimiter=',')
+    for row in csv_reader:
+        print(pd.Timestamp(float(row[0].strip())).strftime('%m:%d:%y %H:%M:%S'))
+        #f.write(pd.Timestamp(float(row[0].strip())).strftime('%m:%d:%y %H:%M:%S') + '\n')
+        
+'''     
+   
+df = pd.read_csv(filename)
+print(df)
+print (len(df))
+
 for i in range(0,len(df),1000):
     print (i)
     mean_ = df.iloc[i:i+1000].mean()
     st_dev = df.iloc[i:i+1000].std()
     print ("index_1 {} index_2 {} mean {} stdev {}".format(i, i+1000, mean_, st_dev))
     print(' ')
+    
+'''
