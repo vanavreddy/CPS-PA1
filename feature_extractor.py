@@ -14,17 +14,37 @@ import csv
 import pandas as pd
 from datetime import datetime
 
-filename = "data/G5NZCJ017647206-Kay-left-hand_wash-soap-2019-09-21-07-12-36.wada"
-#filename = "csv-data/G5NZCJ017647206-Kay-left-hand_wash-soap-2019-09-21-07-12-36.csv"
+#filename = "data/G5NZCJ017647206-Kay-left-hand_wash-soap-2019-09-21-07-12-36.wada"
+filename = "csv-data/G5NZCJ017647206-Kay-left-hand_wash-soap-2019-09-21-07-12-36.csv"
 
-#f = open('./features.csv', 'w')
+f = open('./sample-features.csv', 'w')
 
 with open(filename) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
+    print(csv_reader)
+    counter = 0
     for row in csv_reader:
-        print(pd.Timestamp(float(row[0].strip())).strftime('%m:%d:%y %H:%M:%S'))
-        #f.write(pd.Timestamp(float(row[0].strip())).strftime('%m:%d:%y %H:%M:%S') + '\n')
+        #convert millisecond timestamp to seconds
+        tsecs = float(row[0].strip())/1000.0
+        #convert timestamp to dat/time format
+        print(datetime.fromtimestamp(tsecs).strftime('%m:%d:%y %H:%M:%S'))
+        #print(datetime.fromtimestamp(ts).strftime('%S'))
+        f.write(datetime.fromtimestamp(tsecs).strftime('%m:%d:%y %H:%M:%S') + '\n')
+        counter = counter + 1
+        '''
+        if(counter == 0):
+            prev = datetime.fromtimestamp(ts).strftime('%S')
+            current = datetime.fromtimestamp(ts).strftime('%S')
         
+        current = datetime.fromtimestamp(ts).strftime('%S')
+        
+        if(current != prev):
+            print("Changed {} to {}".format(prev, current))
+            prev = current
+            
+        counter = counter + 1
+        '''
+        #print("Count :", counter)
 '''     
    
 df = pd.read_csv(filename)
